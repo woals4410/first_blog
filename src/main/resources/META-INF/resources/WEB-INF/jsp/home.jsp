@@ -14,17 +14,22 @@
 	<body>
 	
 		<nav class="navbar navbar-expand-md navbar-light bg-light mb-3 p-1">
-			<a class="navbar-brand m-1" href="https://courses.in28minutes.com">in28minutes</a>
-			<div class="collapse navbar-collapse">
-				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="/list-todos">Todos</a></li>
-				</ul>
-			</div>
+		<a class="navbar-brand m-1" href="/">Blog Home</a>
+		<div class="collapse navbar-collapse">
 			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
-			</ul>	
-		</nav>
+				<li class="nav-item"><a class="nav-link" href="/list-todos">Todos</a></li>
+			</ul>
+		</div>
+		<ul class="navbar-nav ms-auto">
+			<c:if test="${not empty sessionScope.user}">
+				<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
+			</c:if>
+			
+			<c:if test="${empty sessionScope.user}">
+				<li class="nav-item"><a class="nav-link" href="/login">로그인</a></li>
+			</c:if>
+		</ul>	
+	</nav>
 		
 		<!-- 
 			여기에 내용
