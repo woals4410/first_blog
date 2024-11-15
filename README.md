@@ -9,6 +9,7 @@
 - ERD 설계 (초반 대략적인 설계)
     
     [https://dbdiagram.io/d/67331d16e9daa85aca251981](https://dbdiagram.io/d/67331d16e9daa85aca251981)
+    ![image](https://github.com/user-attachments/assets/e85bbbd6-eeef-45be-ba59-a7bc0b3c2665)
+
     
-    ![image.png](image.png)
     
