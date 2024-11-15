@@ -3,6 +3,8 @@ package com.jam.first_blog.domain;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -30,6 +32,7 @@ public class User {
 	String email;
 	
 	@Temporal(value = TemporalType.TIMESTAMP)
+	@CreatedDate
 	LocalDateTime created_at;
 	
 	@OneToMany(mappedBy = "user")

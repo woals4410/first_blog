@@ -2,6 +2,9 @@ package com.jam.first_blog.domain;
 
 import java.time.LocalDateTime;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -30,9 +33,11 @@ public class Post {
 	int view_count;
 	
 	@Temporal(value = TemporalType.TIMESTAMP)
+	@CreatedDate
 	LocalDateTime created_at;
 	
 	@Temporal(value = TemporalType.TIMESTAMP)
+	@LastModifiedDate
 	LocalDateTime updated_at;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
