@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import jakarta.servlet.DispatcherType;
+
 @EnableWebSecurity
 @Configuration
 public class SecurityConfiguration {
@@ -27,12 +29,12 @@ public class SecurityConfiguration {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-		http
-			.csrf(csrf -> csrf
+		http.csrf(csrf -> csrf
 					.disable()
 			)
 			.authorizeHttpRequests(requests -> requests
-					.requestMatchers("/", "/login", "join").permitAll()
+					.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
+					.requestMatchers("/", "/login", "/join").permitAll()
 					.anyRequest().authenticated()
 			)
 			.formLogin(form -> form
