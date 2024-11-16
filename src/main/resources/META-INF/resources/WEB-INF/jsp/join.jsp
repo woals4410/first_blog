@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>로그인</title>
+    <title>회원가입</title>
 	
 	<link href="webjars/bootstrap/5.3.3/css/bootstrap.min.css"
 			rel="stylesheet">
@@ -62,22 +62,33 @@
 	<div class="container vh-100 d-flex justify-content-center align-items-center">
 	<main class="form-signin w-100">
 	
-	  <form>
+	  <form action="/register" method="POST">
 	    <img class="mb-4" src="https://getbootstrap.kr/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-	    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-	
-	    <div class="form-floating">
-	      <input type="text" name="username" class="form-control" id="floatingInput" placeholder="username">
-	      <label for="floatingInput">닉네임</label>
-	    </div>
-	    <div class="form-floating">
-	      <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="password">
-	      <label for="floatingPassword">비밀번호</label>
+	    <h1 class="h3 mb-3 fw-normal">회원가입</h1>
+		
+		<div class="form-floating">
+	      <input type="email" name="email" class="form-control" id="floatingEmail" placeholder="이메일" required>
+	      <label for="floatingUsername">이메일</label>
 	    </div>
 		
-	    <button class="btn btn-primary w-100 py-2" type="submit">로그인</button>
+	    <div class="form-floating">
+	      <input type="text" name="username" class="form-control" id="floatingUsername" placeholder="username" required>
+	      <label for="floatingUsername">아이디</label>
+	    </div>
+	
+	    <div class="form-floating">
+	      <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="password" required>
+	      <label for="floatingPassword">비밀번호</label>
+	    </div>
+	
+	    <div class="form-floating">
+	      <input type="password" name="confirmPassword" class="form-control" id="floatingConfirmPassword" placeholder="confirm password" required>
+	      <label for="floatingConfirmPassword">비민번호 확인</label>
+	    </div>
+		
+	    <button class="btn btn-primary w-100 py-2" type="submit">회원가입</button>
 	    
-	    <a href="/join" class="btn btn-secondary w-100 py-2 mt-2">회원가입</a>
+	    <a href="/login" class="btn btn-secondary w-100 py-2 mt-2">아이디가 이미 있으신가요? 로그인</a>
 	    
 	  </form>
 	  
