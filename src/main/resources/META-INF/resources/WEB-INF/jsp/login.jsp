@@ -62,9 +62,9 @@
 	<div class="container vh-100 d-flex justify-content-center align-items-center">
 	<main class="form-signin w-100">
 	
-	  <form>
+	  <form method="post">
 	    <img class="mb-4" src="https://getbootstrap.kr/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-	    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+	    <h1 class="h4 mb-3 fw-normal">블로그 로그인</h1>
 	
 	    <div class="form-floating">
 	      <input type="text" name="username" class="form-control" id="floatingInput" placeholder="username">

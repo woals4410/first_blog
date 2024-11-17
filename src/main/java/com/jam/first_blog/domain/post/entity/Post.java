@@ -1,9 +1,11 @@
-package com.jam.first_blog.domain;
+package com.jam.first_blog.domain.post.entity;
 
 import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+
+import com.jam.first_blog.domain.user.entity.User;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

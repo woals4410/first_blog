@@ -1,4 +1,4 @@
-package com.jam.first_blog.security;
+package com.jam.first_blog.global.security;
 
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;

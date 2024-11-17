@@ -1,4 +1,4 @@
-package com.jam.first_blog.join;
+package com.jam.first_blog.global.join;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
