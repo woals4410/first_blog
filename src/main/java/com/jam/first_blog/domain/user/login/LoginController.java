@@ -1,4 +1,4 @@
-package com.jam.first_blog.global.login;
+package com.jam.first_blog.domain.user.login;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

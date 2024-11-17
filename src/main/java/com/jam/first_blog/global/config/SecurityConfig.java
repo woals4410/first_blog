@@ -1,4 +1,4 @@
-package com.jam.first_blog.global.security;
+package com.jam.first_blog.global.config;
 
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ import jakarta.servlet.DispatcherType;
 
 @EnableWebSecurity
 @Configuration
-public class SecurityConfiguration {
+public class SecurityConfig {
 	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {

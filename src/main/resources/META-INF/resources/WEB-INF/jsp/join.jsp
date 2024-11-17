@@ -16,7 +16,7 @@
 			rel="stylesheet">
 	
     <style>
-      .form-signin {
+      .form-signup {
         max-width: 400px; /* 폼의 최대 너비를 400px로 설정 */
         margin: 0 auto;   /* 화면 가운데 정렬 */
       }
@@ -60,29 +60,29 @@
 	</nav>
 	
 	<div class="container vh-100 d-flex justify-content-center align-items-center">
-	<main class="form-signin w-100">
+	<main class="form-signup w-100">
 	
-	  <form action="/register" method="POST">
+	  <form:form method="POST" modelAttribute="joinForm">
 	    <img class="mb-4" src="https://getbootstrap.kr/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
 	    <h1 class="h3 mb-3 fw-normal">회원가입</h1>
 		
 		<div class="form-floating">
-	      <input type="email" name="email" class="form-control" id="floatingEmail" placeholder="이메일" required>
+	      <form:input type="email" path="email" class="form-control" id="floatingEmail" placeholder="이메일" required />
 	      <label for="floatingUsername">이메일</label>
 	    </div>
 		
 	    <div class="form-floating">
-	      <input type="text" name="username" class="form-control" id="floatingUsername" placeholder="username" required>
+	      <form:input type="text" path="username" class="form-control" id="floatingUsername" placeholder="아이디" required />
 	      <label for="floatingUsername">아이디</label>
 	    </div>
 	
 	    <div class="form-floating">
-	      <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="password" required>
+	      <form:input type="password" path="password" class="form-control" id="floatingPassword" placeholder="비밀번호" required />
 	      <label for="floatingPassword">비밀번호</label>
 	    </div>
 	
 	    <div class="form-floating">
-	      <input type="password" name="confirmPassword" class="form-control" id="floatingConfirmPassword" placeholder="confirm password" required>
+	      <form:input type="password" path="confirmPassword" class="form-control" id="floatingConfirmPassword" placeholder="비밀번호 확인" required />
 	      <label for="floatingConfirmPassword">비민번호 확인</label>
 	    </div>
 		
@@ -90,7 +90,7 @@
 	    
 	    <a href="/login" class="btn btn-secondary w-100 py-2 mt-2">아이디가 이미 있으신가요? 로그인</a>
 	    
-	  </form>
+	  </form:form>
 	  
 	</main>
 	</div>

@@ -62,16 +62,16 @@
 	<div class="container vh-100 d-flex justify-content-center align-items-center">
 	<main class="form-signin w-100">
 	
-	  <form method="post">
+	  <form:form method="post" modelAttribute="loginForm">
 	    <img class="mb-4" src="https://getbootstrap.kr/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
 	    <h1 class="h4 mb-3 fw-normal">블로그 로그인</h1>
 	
 	    <div class="form-floating">
-	      <input type="text" name="username" class="form-control" id="floatingInput" placeholder="username">
-	      <label for="floatingInput">닉네임</label>
+	      <form:input type="text" path="username" class="form-control" id="floatingInput" placeholder="아이디" />
+	      <label for="floatingInput">아이디</label>
 	    </div>
 	    <div class="form-floating">
-	      <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="password">
+	      <form:input type="password" path="password" class="form-control" id="floatingPassword" placeholder="비밀번호" />
 	      <label for="floatingPassword">비밀번호</label>
 	    </div>
 		
@@ -79,7 +79,7 @@
 	    
 	    <a href="/join" class="btn btn-secondary w-100 py-2 mt-2">회원가입</a>
 	    
-	  </form>
+	  </form:form>
 	  
 	</main>
 	</div>
