@@ -34,7 +34,7 @@ public class SecurityConfig {
 			)
 			.authorizeHttpRequests(requests -> requests
 					.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-					.requestMatchers("/", "/login", "/join").permitAll()
+					.requestMatchers("/", "/login", "/join", "/error").permitAll()
 					.anyRequest().authenticated()
 			)
 			.formLogin(form -> form

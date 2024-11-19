@@ -35,6 +35,18 @@
           padding: 15px;
         }
       }
+      
+      .invalid-feedback {
+	    color: #dc3545;  /* Bootstrap에서 사용하는 오류 색상 */
+	    font-size: 0.875rem;
+	    margin-top: 5px;
+	    display: block;
+	    font-weight: 400;
+	  }
+	
+	  .invalid-feedback li {
+	    margin-left: 20px;  /* 여러 오류 메시지가 있을 경우, 들여쓰기 */
+	  }
     </style>
 
   </head>
@@ -67,22 +79,26 @@
 	    <h1 class="h3 mb-3 fw-normal">회원가입</h1>
 		
 		<div class="form-floating">
-	      <form:input type="email" path="email" class="form-control" id="floatingEmail" placeholder="이메일" required />
-	      <label for="floatingUsername">이메일</label>
+	      <form:input path="email" class="form-control" id="floatingEmail" placeholder="이메일" />
+	      <form:errors path="email" cssClass="invalid-feedback" />
+	      <label for="floatingEmail">이메일</label>
 	    </div>
 		
 	    <div class="form-floating">
-	      <form:input type="text" path="username" class="form-control" id="floatingUsername" placeholder="아이디" required />
+	      <form:input path="username" class="form-control" id="floatingUsername" placeholder="아이디" />
+	      <form:errors path="username" cssClass="invalid-feedback" />
 	      <label for="floatingUsername">아이디</label>
 	    </div>
 	
 	    <div class="form-floating">
-	      <form:input type="password" path="password" class="form-control" id="floatingPassword" placeholder="비밀번호" required />
+	      <form:password path="password" class="form-control" id="floatingPassword" placeholder="비밀번호" />
+	      <form:errors path="password" cssClass="invalid-feedback" />
 	      <label for="floatingPassword">비밀번호</label>
 	    </div>
 	
 	    <div class="form-floating">
-	      <form:input type="password" path="confirmPassword" class="form-control" id="floatingConfirmPassword" placeholder="비밀번호 확인" required />
+	      <form:password path="confirmPassword" class="form-control" id="floatingConfirmPassword" placeholder="비밀번호 확인" />
+	      <form:errors path="confirmPassword" cssClass="invalid-feedback" />
 	      <label for="floatingConfirmPassword">비민번호 확인</label>
 	    </div>
 		
