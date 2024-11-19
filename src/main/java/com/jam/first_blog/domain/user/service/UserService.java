@@ -43,4 +43,8 @@ public class UserService {
 		return userRepository.existsByEmail(email);
 	}
 	
+	public boolean isPasswordContainUsername(String password, String username) {
+		return password.contains(username);
+	}
+	
 }
