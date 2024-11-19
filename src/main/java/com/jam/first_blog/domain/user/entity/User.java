@@ -24,19 +24,19 @@ public class User {
 	
 	@Id
 	@GeneratedValue
-	int user_id;
+	private int user_id;
 	
-	String username;
+	private String username;
 	
-	String password;
+	private String password;
 	
 	@Email
-	String email;
+	private String email;
 	
 	@Temporal(value = TemporalType.TIMESTAMP)
 	@CreatedDate
-	LocalDateTime created_at;
+	private LocalDateTime created_at;
 	
 	@OneToMany(mappedBy = "user")
-	List<Post> posts;
+	private List<Post> posts;
 }
