@@ -44,6 +44,7 @@ public class JoinController {
 			result.rejectValue("confirmPassword", "password.missmatch", "비밀번호가 일치하지 않습니다.");
 		}
 		
+		// 비밀번호에 아이디를 포함하는지 체크.
 		if (userService.isPasswordContainUsername(userJoinForm.getPassword(), userJoinForm.getUsername())) {	
 			result.rejectValue("password", "password.containsUsername", "비밀번호에 아이디가 포함될 수 없습니다.");
 		}

@@ -15,6 +15,14 @@ import jakarta.servlet.DispatcherType;
 @Configuration
 public class SecurityConfig {
 	
+	CustomAuthenticationEntryPoint authenticationEntryPoint;
+	
+	public SecurityConfig(CustomAuthenticationEntryPoint authenticationEntryPoint) {
+		super();
+		this.authenticationEntryPoint = authenticationEntryPoint;
+	}
+	
+	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -44,7 +52,9 @@ public class SecurityConfig {
 			)
 			.logout(logout -> logout
 					.permitAll()
-			);
+			)
+			.exceptionHandling(exception -> exception
+					.authenticationEntryPoint(authenticationEntryPoint));
 		
 		return http.build();
 	}

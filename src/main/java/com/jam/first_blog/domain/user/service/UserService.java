@@ -16,6 +16,7 @@ public class UserService {
 		this.userRepository = userRepository;
 	}
 	
+	
 	// User 저장
 	public User saveUser(UserJoinForm userJoinForm) {
 		
@@ -35,16 +36,20 @@ public class UserService {
 		return password.equals(confirmPassword);
 	}
 
+	// 아이디 중복확인
 	public boolean isUsernameDuplicate(String username) {
 		return userRepository.existsByUsername(username);
 	}
 
+	// 이메일 중복확인
 	public boolean isEmailDuplicate(String email) {
 		return userRepository.existsByEmail(email);
 	}
 	
+	// 비밀번호에 아이디를 포함하는지 체크
 	public boolean isPasswordContainUsername(String password, String username) {
 		return password.contains(username);
 	}
+	
 	
 }

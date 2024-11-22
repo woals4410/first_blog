@@ -40,6 +40,12 @@
   </head>
   
   <body>
+  
+    <c:if test="${param.error == 'unauthorized'}">
+    	<script>
+    		alert('로그인이 필요합니다');
+    	</script>
+    </c:if>
 
 	<nav class="navbar navbar-expand-md navbar-light bg-light mb-3 p-1">
 		<a class="navbar-brand m-1" href="/">Blog Home</a>
