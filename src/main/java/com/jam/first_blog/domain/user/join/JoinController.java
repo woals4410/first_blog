@@ -1,11 +1,13 @@
 package com.jam.first_blog.domain.user.join;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jam.first_blog.domain.user.dto.UserJoinForm;
 import com.jam.first_blog.domain.user.service.UserService;
@@ -26,7 +28,13 @@ public class JoinController {
 	
 
 	@GetMapping("/join")
-	public String showJoinForm(ModelMap model) {
+	public String showJoinForm(ModelMap model, Authentication authentication, RedirectAttributes redirectAttributes) {
+		
+		if (authentication != null && authentication.isAuthenticated()) {
+			redirectAttributes.addFlashAttribute("error", "alreadyLogin");
+			log.debug("JoinController: 로그인 했는데 또 회원가입하려고 함.");
+			return "redirect:/";
+		}
 		
 		UserJoinForm userJoinForm = new UserJoinForm();
 		model.put("joinForm", userJoinForm);

@@ -12,7 +12,11 @@
 	</head>
 	
 	<body>
-	
+		
+		<c:if test="${param.error == 'alreadyLogin'}">
+			<script>alert('이미 로그인되어 있습니다.');</script>
+		</c:if>
+		
 		<nav class="navbar navbar-expand-md navbar-light bg-light mb-3 p-1">
 		<a class="navbar-brand m-1" href="/">Blog Home</a>
 		<div class="collapse navbar-collapse">
