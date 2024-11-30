@@ -9,38 +9,39 @@
 		<link href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css"
 			rel="stylesheet">
 		<title>${sessionScope.user.username}님의 블로그</title>
+		
+		<style>
+			.form-floating {
+				margin-bottom: 15px;
+			}
+		</style>
 	</head>
 	
 	<body>
-		
 		<c:if test="${param.error == 'alreadyLogin'}">
 			<script>alert('이미 로그인되어 있습니다.');</script>
 		</c:if>
+		<%@include file="common/navigation.jspf" %>
 		
-		<nav class="navbar navbar-expand-md navbar-light bg-light mb-3 p-1">
-			<a class="navbar-brand m-1" href="/">Blog Home</a>
-			<div class="collapse navbar-collapse">
-				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link" href="/list-todos">Todos</a></li>
-				</ul>
-			</div>
-			
-			<ul class="navbar-nav ms-auto">
-				<c:if test="${not empty sessionScope.user}">
-					<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
-				</c:if>
-			
-				<c:if test="${empty sessionScope.user}">
-					<li class="nav-item"><a class="nav-link" href="/login">로그인</a></li>
-				</c:if>
-			</ul>	
-		</nav>
+		<div class="container">
+			<form:form method="POST" modelAttribute="postCreateForm">
+				
+				<div class="mb-3">
+					<form:textarea path="content" cssClass="form-control" id="floatingContent" placeholder="내용을 입력 해주세요."
+						rows="7" style="resize: none;" />
+					<label for="floatingContent" class="form-label">내용</label>
+				</div>
+				
+				<div class="form-floating">
+					<form:input path="title" class="form-control" id="floatingUsername" placeholder="아이디" />
+					<form:errors path="title" cssClass="invalid-feedback" />
+					<label for="floatingUsername">아이디</label>
+				</div>
+			</form:form>
+		</div>
 		
-		<!-- 
-			여기에 내용
-		 -->
 		
-		<script src="/webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+		<script src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
 		<script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
 		
 	</body>

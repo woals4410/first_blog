@@ -1,0 +1,37 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+		<nav class="navbar bg-body-tertiary mb-3 p-1" aria-label="Light offcanvas navbar">
+			<div class="container-fluid d-flex justify-content-between">
+				<a class="navbar-brand" href="/">Blog Home</a>
+	
+				<button class="navbar-toggler ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbarLight"
+					aria-controls="offcanvasNavbarLight" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				
+				<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbarLight"
+					aria-labelledby="offcanvasNavbarLightLabel">
+					
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="offcanvasNavbarLightLabel">${sessionScope.user.username}</h5>
+						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					</div>
+					
+					<div class="offcanvas-body">
+						<ul class="navbar-nav justify-content-end flex-grow-1 pe-3 ms-auto">
+							<li class="nav-item">
+								<a class="nav-link active" aria-current="page" href="/${sessionScope.user.username}/posts">내 블로그</a>
+							</li>
+							
+							<c:if test="${not empty sessionScope.user}">
+								<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
+							</c:if>
+							
+							<c:if test="${empty sessionScope.user}">
+								<li class="nav-item"><a class="nav-link" href="/login">로그인</a></li>
+							</c:if>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>

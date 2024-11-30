@@ -32,22 +32,22 @@ public class Post {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int post_id;
+	private int post_id;
 	
-	int user_id;
+	private int user_id;
 	
-	String title;
+	private String title;
 	
-	String content;
+	private String content;
 	
-	int view_count;
+	private int view_count;
 	
 	@CreatedDate
-	LocalDateTime created_at;
+	private LocalDateTime created_at;
 	
 	@LastModifiedDate
-	LocalDateTime updated_at;
+	private LocalDateTime updated_at;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	User user;
+	private User user;
 }

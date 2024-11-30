@@ -70,8 +70,13 @@ public class UserService {
 	}
 	
 	// 아이디가 존재하는지 확인
-		public boolean isExistsUsername(String username) {
-			return userRepository.findByUsername(username).isPresent();
-		}
+	public boolean isExistsUsername(String username) {
+		return userRepository.findByUsername(username).isPresent();
+	}
 	
+	
+	// username으로 User 찾기
+	public User findByUsername(String username) {
+		return userRepository.findByUsername(username).orElse(null);
+	}
 }
