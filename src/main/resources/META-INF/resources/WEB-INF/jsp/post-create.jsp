@@ -8,7 +8,7 @@
 	<head>
 		<link href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css"
 			rel="stylesheet">
-		<title>First Blog</title>
+		<title>${sessionScope.user.username}님의 블로그</title>
 	</head>
 	
 	<body>

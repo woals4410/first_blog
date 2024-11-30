@@ -1,8 +1,11 @@
 package com.jam.first_blog.domain.user.service;
 
+import java.util.List;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.jam.first_blog.domain.post.entity.Post;
 import com.jam.first_blog.domain.user.dto.UserJoinForm;
 import com.jam.first_blog.domain.user.entity.User;
 import com.jam.first_blog.domain.user.repository.UserRepository;
@@ -33,6 +36,17 @@ public class UserService {
 				.build();
 		
 		return userRepository.save(user);
+	}
+	
+	public List<Post> retrievePosts(String username) {
+		
+		User user = userRepository.findByUsername(username).orElse(null);
+		
+		if (user == null) {
+			return null;
+		}
+		
+		return user.getPosts();
 	}
 	
 	// 비밀번호와 비밀번호 확인이 같은지 체크
