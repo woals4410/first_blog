@@ -15,8 +15,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,9 +30,7 @@ public class Post {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int post_id;
-	
-	private int user_id;
+	private int id;
 	
 	private String title;
 	
@@ -43,10 +39,10 @@ public class Post {
 	private int view_count;
 	
 	@CreatedDate
-	private LocalDateTime created_at;
+	private LocalDateTime createdAt;
 	
 	@LastModifiedDate
-	private LocalDateTime updated_at;
+	private LocalDateTime updatedAt;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;

@@ -35,7 +35,7 @@ public class User implements UserDetails {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int user_id;
+	private int id;
 	
 	private String username;
 	
@@ -45,7 +45,7 @@ public class User implements UserDetails {
 	private String email;
 	
 	@CreatedDate
-	private LocalDateTime created_at;
+	private LocalDateTime createdAt;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Post> posts;
