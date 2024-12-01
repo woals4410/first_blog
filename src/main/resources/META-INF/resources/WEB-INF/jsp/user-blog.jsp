@@ -24,7 +24,7 @@
 				<a  href="/${username}/posts/new" class="btn btn-primary">새 글 작성</a>
 			</div>
 			
-			<div class="row row-cols-1 row-cols-md-3 g-4">
+			<div class="row row-cols-1 g-4">
 				<c:forEach items="${posts}" var="post">
 					<div class="col">
 						<div class="card">
