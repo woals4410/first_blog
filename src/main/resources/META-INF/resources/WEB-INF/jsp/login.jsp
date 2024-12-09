@@ -43,7 +43,10 @@
   
   	<!-- 인증하지 않았을 때 띄우는 메시지 -->
 	<c:if test="${param.error == 'unauthorized'}">
-		<script>alert('로그인이 필요합니다');</script>
+		<script>alert('로그인이 필요합니다.');</script>
+	</c:if>
+	<c:if test="${param.error != null && param.error != 'unauthorized'}">
+    	<script>alert('아이디 또는 비밀번호가 일치하지 않습니다.');</script>
 	</c:if>
 
 	<%@include file="common/navigation.jspf" %>
@@ -56,11 +59,13 @@
 			
 			<div class="form-floating">
 				<input type="text" name="username" class="form-control" id="floatingInput" placeholder="아이디" />
+				<form:errors path="username" cssClass="invalid-feedback" />
 				<label for="floatingInput">아이디</label>
 			</div>
 			
 			<div class="form-floating">
 				<input type="password" name="password" class="form-control" id="floatingPassword" placeholder="비밀번호" />
+				<form:errors path="username" cssClass="invalid-feedback" />
 				<label for="floatingPassword">비밀번호</label>
 			</div>
 			

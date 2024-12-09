@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -79,7 +78,6 @@ public class SecurityConfig {
 	                    
 	                    response.sendRedirect("/");  // 로그인 성공 후 리다이렉트할 URL
 	                })
-//					.defaultSuccessUrl("/", true)
 					.permitAll()
 			)
 			.logout(logout -> logout
