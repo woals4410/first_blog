@@ -19,12 +19,13 @@
 					
 					<div class="offcanvas-body">
 						<ul class="navbar-nav justify-content-end flex-grow-1 pe-3 ms-auto">
-							<li class="nav-item">
-								<a class="nav-link active" aria-current="page" href="/${sessionScope.user.username}/posts">내 블로그</a>
-							</li>
+							
 							
 							<c:if test="${not empty sessionScope.user}">
-								<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="/${sessionScope.user.username}/posts">내 블로그</a>
+									<a class="nav-link" href="/logout">로그아웃</a>
+								</li>
 							</c:if>
 							
 							<c:if test="${empty sessionScope.user}">

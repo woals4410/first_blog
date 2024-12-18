@@ -27,7 +27,7 @@ private UserService userService;
         
 		if (authentication != null && authentication.isAuthenticated()) {
 			redirectAttributes.addFlashAttribute("error", "alreadyLogin");
-			log.debug("LoginController: 로그인 했는데 또 로그인하려고 함.");
+			log.debug("LoginController: 이미 로그인했는데 로그인시도 발생.");
 			return "redirect:/";
 		}
 		
