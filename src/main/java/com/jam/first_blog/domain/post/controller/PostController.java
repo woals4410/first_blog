@@ -115,7 +115,7 @@ public class PostController {
 	}
 	
 	@DeleteMapping("/{username}/posts/{postId}")
-	public String deletePost(@PathVariable int postId) {
+	public String deletePost(@PathVariable String username, @PathVariable int postId) {
 		postService.deleteByPostId(postId);
 		
 		return "redirect:/{username}/posts";

@@ -24,7 +24,10 @@
 			<div class="p-4 p-md-5 mb-4 bg-body-secondary text-dark rounded shadow">
 				<div class="d-flex justify-content-between align-items-center mb-4">
 					<h1 class="fw-bold mb-3">${post.title}</h1>
-					<button formmethod="DELETE" class="btn btn-danger">글 삭제</button>
+					<form action="/${sessionScope.user.username}/posts/${post.id}" method="post">
+						<input type="hidden" name="_method" value="DELETE">
+						<button type="submit" class="btn btn-danger">글 삭제</button>
+					</form>
 				</div>
 				
 				<div class="d-flex justify-content-between align-items-center">
