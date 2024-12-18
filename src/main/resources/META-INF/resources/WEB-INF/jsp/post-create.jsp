@@ -18,9 +18,6 @@
 	</head>
 	
 	<body>
-		<c:if test="${param.error == 'alreadyLogin'}">
-			<script>alert('이미 로그인되어 있습니다.');</script>
-		</c:if>
 		<%@include file="common/navigation.jspf" %>
 		
 		<div class="container pt-4 pb-3 shadow" style="background-color: #f5f5f5;">

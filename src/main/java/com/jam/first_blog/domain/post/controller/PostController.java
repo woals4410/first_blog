@@ -1,5 +1,6 @@
 package com.jam.first_blog.domain.post.controller;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.security.access.AccessDeniedException;
@@ -7,10 +8,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jam.first_blog.domain.post.dto.PostCreateForm;
 import com.jam.first_blog.domain.post.entity.Post;
@@ -81,6 +84,39 @@ public class PostController {
 		}
 		
 		postService.savePost(postCreateForm, user);
+		
+		return "redirect:/{username}/posts";
+	}
+	
+	@GetMapping("/{username}/posts/{postId}")
+	public String showPostById(@PathVariable String username, @PathVariable int postId, ModelMap model,
+							RedirectAttributes redirectAttributes) {
+		Post post = postService.findByPostId(postId);
+		
+		if (post == null) {
+			redirectAttributes.addFlashAttribute("error", "postNotFound");
+			log.debug("포스트아이디");
+			return "redirect:/{username}/posts";
+		}
+		
+		postService.incrementPostViewCount(postId);
+		
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+		String formattedCreatedAt = post.getCreatedAt().format(dateFormatter);
+		
+		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-mm-dd HH:mm");
+		String formattedUpdatedAt = post.getUpdatedAt().format(dateTimeFormatter);
+		
+		model.put("post", post);
+		model.put("formattedCreatedAt", formattedCreatedAt);
+		model.put("formattedUpdatedAt", formattedUpdatedAt);
+		
+		return "user-post";
+	}
+	
+	@DeleteMapping("/{username}/posts/{postId}")
+	public String deletePost(@PathVariable int postId) {
+		postService.deleteByPostId(postId);
 		
 		return "redirect:/{username}/posts";
 	}

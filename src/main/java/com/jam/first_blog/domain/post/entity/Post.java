@@ -36,7 +36,7 @@ public class Post {
 	
 	private String content;
 	
-	private int view_count;
+	private int viewCount;
 	
 	@CreatedDate
 	private LocalDateTime createdAt;
@@ -46,4 +46,8 @@ public class Post {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
+	
+	public void incrementViewCount() {
+		this.viewCount++;
+	}
 }

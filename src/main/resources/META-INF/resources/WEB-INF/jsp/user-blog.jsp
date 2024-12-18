@@ -10,9 +10,19 @@
 			rel="stylesheet">
 		<meta charset="UTF-8">
 		<title>${sessionScope.user.username}님의 블로그</title>
+		
+		<style>
+			.card-body.hover-effect:hover {
+				background-color: #e7f3ff; /* 파스텔 블루 */
+				transition: background-color 0.3s ease-in-out;
+			}
+		</style>
 	</head>
 	
 	<body>
+		<c:if test="${param.error == 'post not found'}">
+			<script>alert('게시글이 존재하지 않습니다.');</script>
+		</c:if>
 		<%@include file="common/navigation.jspf" %>
 		
 		<div class="container mt-5">
@@ -28,11 +38,13 @@
 				<c:forEach items="${posts}" var="post">
 					<div class="col">
 						<div class="card">
-							<div class="card-body">
-								<h5 class="card-title">${post.title}</h5>
-								<p class="card-text">${post.content}</p>
-								<a href="/posts/${post.id}" class="btn btn-info">자세히 보기</a>
-							</div>
+							<a href="/${username}/posts/${post.id}" class="text-decoration-none text-body">
+								<div class="card-body hover-effect">
+									<h5 class="card-title">${post.title}</h5>
+									<p class="card-text text-muted">${post.content}</p>
+								</div>
+							</a>
+							
 							<div class="card-footer text-muted">
 								작성일: ${post.createdAt}
 							</div>

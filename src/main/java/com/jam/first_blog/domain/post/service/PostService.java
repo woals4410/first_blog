@@ -7,6 +7,9 @@ import com.jam.first_blog.domain.post.entity.Post;
 import com.jam.first_blog.domain.post.repository.PostRepository;
 import com.jam.first_blog.domain.user.entity.User;
 
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+
 @Service
 public class PostService {
 	
@@ -22,13 +25,27 @@ public class PostService {
 		Post post = Post.builder()
 						.title(postCreateForm.getTitle())
 						.content(postCreateForm.getContent())
-						.view_count(0)
+						.viewCount(0)
 						.user(user)
 						.build();
 		
 		return postRepository.save(post);
 	}
 	
+	public Post findByPostId(int postId) {
+		return postRepository.findById(postId).orElse(null);
+	}
 	
+	public void deleteByPostId(int id) {
+		postRepository.deleteById(id);
+	}
+	
+	@Transactional
+	public void incrementPostViewCount(int postId) {
+		Post post = postRepository.findById(postId)
+				.orElseThrow(() -> new EntityNotFoundException());
+		
+		post.incrementViewCount();
+	}
 
 }
