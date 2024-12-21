@@ -20,7 +20,7 @@
 	<body>
 		<%@include file="common/navigation.jspf" %>
 		
-		<div class="container pt-4 pb-3 shadow" style="background-color: #f5f5f5;">
+		<div class="container pt-4 pb-3 shadow" style="background-color: #d0d7c9;">
 			<form:form method="POST" modelAttribute="postCreateForm">
 				
 				<div class="form-floating mt-3">

@@ -16,7 +16,7 @@
 	<body>
 		<%@include file="common/navigation.jspf" %>
 		
-		<div class="container mt-5">
+		<div class="container mt-1" style="background: #b2c7a8;">
 			
 			<h1>${sessionScope.user.username}님의 블로그</h1>
 			<hr><br>
@@ -42,12 +42,11 @@
 				</div>
 			</div>
 			
-			<div class="comment mb-3">
+			<div class="comment mb-3 pb-3">
 				<textarea class="form-control" rows="3" placeholder="댓글을 입력 해주세요."
 						style="resize: none;"></textarea>
 				<button class="btn btn-info mt-2" formmethod="post" formaction="">댓글 작성</button>
 			</div>
-			
 		</div>
 		
 		<script src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>

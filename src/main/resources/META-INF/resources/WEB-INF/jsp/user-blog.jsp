@@ -25,7 +25,7 @@
 		</c:if>
 		<%@include file="common/navigation.jspf" %>
 		
-		<div class="container mt-5">
+		<div class="container mt-1" style="background: #b2c7a8;">
 			<h1>${sessionScope.user.username}님의 블로그</h1>
 			<hr><br>
 			
@@ -36,7 +36,7 @@
 			
 			<div class="row row-cols-1 g-4">
 				<c:forEach items="${posts}" var="post">
-					<div class="col">
+					<div class="col mb-1">
 						<div class="card">
 							<a href="/${username}/posts/${post.id}" class="text-decoration-none text-body">
 								<div class="card-body hover-effect">
@@ -51,7 +51,7 @@
 						</div>
 					</div>
 				</c:forEach>
-			</div>
+			</div><br>
 		</div>
 		
 		<script src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
