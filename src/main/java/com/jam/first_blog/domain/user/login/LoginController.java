@@ -4,6 +4,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jam.first_blog.domain.user.service.UserService;
 
@@ -22,9 +23,10 @@ private UserService userService;
 	
 	
 	@GetMapping("/login")
-    public String login() {
+    public String login(RedirectAttributes redirectAttributes) {
 		if (!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
-			return "redirect:/?error=alreadyLogin";
+			redirectAttributes.addFlashAttribute("error", "alreadyLogin");
+			return "redirect:/";
 		}
         
 		return "login";

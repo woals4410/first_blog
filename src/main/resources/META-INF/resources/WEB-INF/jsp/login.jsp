@@ -43,10 +43,14 @@
   
   	<!-- 인증하지 않았을 때 띄우는 메시지 -->
 	<c:if test="${param.error == 'unauthorized'}">
-		<script>alert('로그인이 필요합니다.');</script>
+		<div class="alert alert-danger text-center" role="alert">
+           	로그인이 필요합니다.
+       	</div>
 	</c:if>
 	<c:if test="${param.error != null && param.error != 'unauthorized'}">
-    	<script>alert('아이디 또는 비밀번호가 일치하지 않습니다.');</script>
+    	<div class="alert alert-danger text-center" role="alert">
+           	아이디 또는 비밀번호가 일치하지 않습니다.
+       	</div>
 	</c:if>
 
 	<%@include file="common/navigation.jspf" %>

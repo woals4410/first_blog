@@ -12,13 +12,12 @@
 	</head>
 	
 	<body>
-		<c:if test="${param.error eq 'alreadyLogin'}">
-			<script>
-				${document}.ready(function() {
-					alert('이미 로그인되어 있습니다.');
-				});
-			</script>
-		</c:if>
+		<c:if test="${error eq 'alreadyLogin'}">
+        	<div class="alert alert-danger text-center" role="alert">
+            	이미 로그인되어 있습니다.
+        	</div>
+    	</c:if>
+    	
 		
 		<%@include file="common/navigation.jspf" %>
 		

@@ -21,7 +21,9 @@
 	
 	<body>
 		<c:if test="${error eq 'postNotFound'}">
-			<script>alert('게시글이 존재하지 않습니다.');</script>
+			<div class="alert alert-danger text-center" role="alert">
+            	게시글이 존재하지 않습니다.
+        	</div>
 		</c:if>
 		<%@include file="common/navigation.jspf" %>
 		

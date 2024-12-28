@@ -19,7 +19,6 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint{
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException, ServletException {
 		log.info("AuthenticationEntryPoint triggered for URI: {}", request.getRequestURI());
-		//SecurityContextHolder.getContext().getAuthentication() != null
 		
 		response.sendRedirect("/login?error=unauthorized");
 	}
