@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -39,16 +40,19 @@ public class PostController {
 	
 	@GetMapping("/{username}")
 	public String showUserBlog(@PathVariable String username, ModelMap model) {
-		
 		return "redirect:/{username}/posts";
 	}
 	
 	@GetMapping("/{username}/posts")
-	public String showPosts(@PathVariable String username, ModelMap model) {
+	public String showPosts(@PathVariable String username, ModelMap model,
+							@ModelAttribute("error") String error) {
+		if (error.equals("postNotFound")) {
+			model.addAttribute("error", error);
+		}
 		
 		List<Post> posts = userService.retrievePosts(username);
 		model.addAttribute("posts", posts);
-		
+
 		return "user-blog";
 	}
 	
@@ -95,7 +99,7 @@ public class PostController {
 		
 		if (post == null) {
 			redirectAttributes.addFlashAttribute("error", "postNotFound");
-			log.debug("포스트아이디");
+			log.debug("post를 찾을 수 없음");
 			return "redirect:/{username}/posts";
 		}
 		

@@ -9,7 +9,7 @@
 		<link href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css"
 			rel="stylesheet">
 		<meta charset="UTF-8">
-		<title>${sessionScope.user.username}님의 블로그</title>
+		<title>${username}님의 블로그</title>
 		
 	</head>
 	
@@ -18,13 +18,13 @@
 		
 		<div class="container mt-1" style="background: #b2c7a8;">
 			
-			<h1>${sessionScope.user.username}님의 블로그</h1>
+			<h1>${username}님의 블로그</h1>
 			<hr><br>
 			
 			<div class="p-4 p-md-5 mb-4 bg-body-secondary text-dark rounded shadow">
 				<div class="d-flex justify-content-between align-items-center mb-4">
 					<h1 class="fw-bold mb-3">${post.title}</h1>
-					<form action="/${sessionScope.user.username}/posts/${post.id}" method="post">
+					<form action="/${username}/posts/${post.id}" method="post">
 						<input type="hidden" name="_method" value="DELETE">
 						<button type="submit" class="btn btn-danger">글 삭제</button>
 					</form>

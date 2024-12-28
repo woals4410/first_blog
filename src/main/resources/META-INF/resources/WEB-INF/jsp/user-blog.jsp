@@ -9,7 +9,7 @@
 		<link href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css"
 			rel="stylesheet">
 		<meta charset="UTF-8">
-		<title>${sessionScope.user.username}님의 블로그</title>
+		<title>${username}님의 블로그</title>
 		
 		<style>
 			.card-body.hover-effect:hover {
@@ -20,13 +20,13 @@
 	</head>
 	
 	<body>
-		<c:if test="${param.error == 'post not found'}">
+		<c:if test="${error eq 'postNotFound'}">
 			<script>alert('게시글이 존재하지 않습니다.');</script>
 		</c:if>
 		<%@include file="common/navigation.jspf" %>
 		
 		<div class="container mt-1" style="background: #b2c7a8;">
-			<h1>${sessionScope.user.username}님의 블로그</h1>
+			<h1>${username}님의 블로그</h1>
 			<hr><br>
 			
 			<div class="d-flex justify-content-between align-items-center mb-3">

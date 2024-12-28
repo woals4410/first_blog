@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -64,19 +65,21 @@ public class SecurityConfig {
 			)
 			.authorizeHttpRequests(requests -> requests
 					.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-					.requestMatchers("/", "/login", "/join", "/error").permitAll()
+					.requestMatchers("/", "/join", "/error", "/login").permitAll()
 					.anyRequest().authenticated()
 			)
 			.formLogin(form -> form
 					.loginPage("/login")
 					.successHandler((request, response, authentication) -> {
 	                    // 로그인 성공 시 실행될 코드
-	                    log.info("로그인 성공: 사용자 - {}", authentication.getName());  // 로그인한 사용자 이름을 로그로 출력
-	                    
-	                    HttpSession session = request.getSession();
-	                    session.setAttribute("user", authentication.getPrincipal());
-	                    
-	                    response.sendRedirect("/");  // 로그인 성공 후 리다이렉트할 URL
+						
+						log.info("로그인 성공: 사용자 - {}", authentication.getName());  // 로그인한 사용자 이름을 로그로 출력
+						
+						HttpSession session = request.getSession();
+						session.setAttribute("user", authentication.getPrincipal());
+						SecurityContextHolder.getContext().setAuthentication(authentication);
+						
+						response.sendRedirect("/");  // 로그인 성공 후 리다이렉트할 URL
 	                })
 					.permitAll()
 			)
@@ -85,6 +88,7 @@ public class SecurityConfig {
 			)
 			.exceptionHandling(exception -> exception
 					.authenticationEntryPoint(authenticationEntryPoint));
+		
 		
 		return http.build();
 	}

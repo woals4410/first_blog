@@ -1,5 +1,9 @@
 package com.jam.first_blog.domain.post.service;
 
+import java.util.List;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.jam.first_blog.domain.post.dto.PostCreateForm;
@@ -47,5 +51,10 @@ public class PostService {
 		
 		post.incrementViewCount();
 	}
-
+	
+	public List<Post> getTop5RecentPosts() {
+		
+		Pageable pageable = PageRequest.of(0, 5);
+		return postRepository.findByOrderByCreatedAtDesc(pageable).getContent();
+	}
 }
