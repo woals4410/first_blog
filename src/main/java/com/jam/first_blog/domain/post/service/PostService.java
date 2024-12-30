@@ -30,6 +30,7 @@ public class PostService {
 						.title(postCreateForm.getTitle())
 						.content(postCreateForm.getContent())
 						.viewCount(0)
+						.likeCount(0)
 						.user(user)
 						.build();
 		
@@ -37,7 +38,8 @@ public class PostService {
 	}
 	
 	public Post findByPostId(int postId) {
-		return postRepository.findById(postId).orElse(null);
+		return postRepository.findById(postId)
+				.orElseThrow(() -> new EntityNotFoundException("게시글이 존재하지 않습니다."));
 	}
 	
 	public void deleteByPostId(int id) {
@@ -47,9 +49,25 @@ public class PostService {
 	@Transactional
 	public void incrementPostViewCount(int postId) {
 		Post post = postRepository.findById(postId)
-				.orElseThrow(() -> new EntityNotFoundException());
+				.orElseThrow(() -> new EntityNotFoundException("게시글이 존재하지 않습니다."));
 		
 		post.incrementViewCount();
+	}
+	
+	@Transactional
+	public void incrementPostLikeCount(int postId) {
+		Post post = postRepository.findById(postId)
+				.orElseThrow(() -> new EntityNotFoundException("게시글이 존재하지 않습니다."));
+		
+		post.incrementLikeCount();
+	}
+	
+	@Transactional
+	public void decrementPostLikeCount(int postId) {
+		Post post = postRepository.findById(postId)
+				.orElseThrow(() -> new EntityNotFoundException("게시글이 존재하지 않습니다."));
+		
+		post.decrementLikeCount();
 	}
 	
 	public List<Post> getTop5RecentPosts() {

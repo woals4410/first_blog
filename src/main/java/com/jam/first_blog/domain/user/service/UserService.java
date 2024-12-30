@@ -2,6 +2,7 @@ package com.jam.first_blog.domain.user.service;
 
 import java.util.List;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -40,14 +41,13 @@ public class UserService {
 	
 	public List<Post> retrievePosts(String username) {
 		
-		User user = userRepository.findByUsername(username).orElse(null);
-		
-		if (user == null) {
-			return null;
-		}
+		User user = userRepository.findByUsername(username)
+				.orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
 		
 		return user.getPosts();
 	}
+	
+	
 	
 	// 비밀번호와 비밀번호 확인이 같은지 체크
 	public boolean checkConfirmPassword(String password, String confirmPassword ) {
@@ -77,6 +77,7 @@ public class UserService {
 	
 	// username으로 User 찾기
 	public User findByUsername(String username) {
-		return userRepository.findByUsername(username).orElse(null);
+		return userRepository.findByUsername(username)
+				.orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
 	}
 }

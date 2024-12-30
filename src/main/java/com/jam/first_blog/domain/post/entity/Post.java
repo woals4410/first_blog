@@ -38,6 +38,8 @@ public class Post {
 	
 	private int viewCount;
 	
+	private int likeCount;
+	
 	@CreatedDate
 	private LocalDateTime createdAt;
 	
@@ -49,5 +51,13 @@ public class Post {
 	
 	public void incrementViewCount() {
 		this.viewCount++;
+	}
+	
+	public void incrementLikeCount() {
+		this.likeCount++;
+	}
+	
+	public void decrementLikeCount() {
+		this.likeCount--;
 	}
 }

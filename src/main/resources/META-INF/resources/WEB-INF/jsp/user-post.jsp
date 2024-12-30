@@ -40,6 +40,17 @@
 				<div class="content">
 					<p class="fs-5">${post.content}</p>
 				</div>
+				
+				<div class="d-flex justify-content-between align-items-center">
+					<form action="/${username}/posts/${post.id}/like-toggle" method="post">
+						<button type="submit" class="btn ${isLiked ? 'btn-danger' : 'btn-outline-danger'}">
+							${isLiked ? '좋아요 취소' : '좋아요'}
+						</button>
+					</form>
+					<p>
+						좋아요 수: ${likeCount}
+					</p>
+				</div>
 			</div>
 			
 			<div class="comment mb-3 pb-3">

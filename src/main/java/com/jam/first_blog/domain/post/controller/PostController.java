@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.jam.first_blog.domain.like.service.LikeService;
 import com.jam.first_blog.domain.post.dto.PostCreateForm;
 import com.jam.first_blog.domain.post.entity.Post;
 import com.jam.first_blog.domain.post.service.PostService;
@@ -31,11 +32,13 @@ public class PostController {
 	
 	private UserService userService;
 	private PostService postService;
+	private LikeService likeService;
 	
-	public PostController(UserService userService, PostService postService) {
+	public PostController(UserService userService, PostService postService, LikeService likeService) {
 		super();
 		this.userService = userService;
 		this.postService = postService;
+		this.likeService = likeService;
 	}
 	
 	@GetMapping("/{username}")
@@ -44,11 +47,7 @@ public class PostController {
 	}
 	
 	@GetMapping("/{username}/posts")
-	public String showPosts(@PathVariable String username, ModelMap model,
-							@ModelAttribute("error") String error) {
-		if (error.equals("postNotFound")) {
-			model.addAttribute("error", error);
-		}
+	public String showPosts(@PathVariable String username, ModelMap model) {
 		
 		List<Post> posts = userService.retrievePosts(username);
 		model.addAttribute("posts", posts);
@@ -93,27 +92,28 @@ public class PostController {
 	}
 	
 	@GetMapping("/{username}/posts/{postId}")
-	public String showPostById(@PathVariable String username, @PathVariable int postId, ModelMap model,
-							RedirectAttributes redirectAttributes) {
+	public String showPostById(@PathVariable String username, @PathVariable int postId,
+								ModelMap model, Authentication authentication) {
 		Post post = postService.findByPostId(postId);
-		
-		if (post == null) {
-			redirectAttributes.addFlashAttribute("error", "postNotFound");
-			log.debug("post를 찾을 수 없음");
-			return "redirect:/{username}/posts";
-		}
 		
 		postService.incrementPostViewCount(postId);
 		
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
-		String formattedCreatedAt = post.getCreatedAt().format(dateFormatter);
-		
+		String formattedCreatedAt = post.getCreatedAt().format(dateFormatter);		
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-mm-dd HH:mm");
 		String formattedUpdatedAt = post.getUpdatedAt().format(dateTimeFormatter);
-		
-		model.put("post", post);
 		model.put("formattedCreatedAt", formattedCreatedAt);
 		model.put("formattedUpdatedAt", formattedUpdatedAt);
+		
+		model.put("post", post);
+
+		User authenticatedUser = userService.findByUsername(authentication.getName());
+		boolean isLiked = likeService.isLikeExist(authenticatedUser, post);
+		
+		model.put("isLiked", isLiked);
+		
+		int likeCount = post.getLikeCount();
+		model.put("likeCount", likeCount);
 		
 		return "user-post";
 	}
@@ -125,4 +125,11 @@ public class PostController {
 		return "redirect:/{username}/posts";
 	}
 	
+	@PostMapping("/{username}/posts/{postId}/like-toggle")
+	public String likePost(@PathVariable int postId, Authentication authentication) {
+		
+		likeService.likeToggle(authentication.getName(), postId);
+		
+		return "redirect:/{username}/posts/{postId}";
+	}
 }
