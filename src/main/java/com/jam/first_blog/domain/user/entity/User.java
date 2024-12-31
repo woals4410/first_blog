@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.jam.first_blog.domain.like.entity.Like;
 import com.jam.first_blog.domain.post.entity.Post;
 
 import jakarta.persistence.CascadeType;
@@ -47,8 +48,11 @@ public class User implements UserDetails {
 	@CreatedDate
 	private LocalDateTime createdAt;
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Post> posts;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+	private List<Like> likes;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

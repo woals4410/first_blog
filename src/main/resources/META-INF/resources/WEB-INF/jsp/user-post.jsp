@@ -28,7 +28,7 @@
 						<form action="/${username}/posts/${post.id}" method="post">
 							<input type="hidden" name="_method" value="DELETE">
 							<button type="button" class="btn btn-danger"
-								onclick="confirmDelete(${username}, ${post.id})">글 삭제</button>
+								onclick="confirmDelete('${username}', ${post.id})">글 삭제</button>
 						</form>
 					</c:if>
 				</div>
