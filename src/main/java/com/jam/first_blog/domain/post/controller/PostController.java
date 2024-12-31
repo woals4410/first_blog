@@ -47,10 +47,13 @@ public class PostController {
 	}
 	
 	@GetMapping("/{username}/posts")
-	public String showPosts(@PathVariable String username, ModelMap model) {
+	public String showPosts(@PathVariable String username, ModelMap model,
+							Authentication authentication) {
 		
 		List<Post> posts = userService.retrievePosts(username);
 		model.addAttribute("posts", posts);
+		
+		model.put("authenticatedUsername", authentication.getName());
 
 		return "user-blog";
 	}
@@ -109,6 +112,7 @@ public class PostController {
 
 		User authenticatedUser = userService.findByUsername(authentication.getName());
 		boolean isLiked = likeService.isLikeExist(authenticatedUser, post);
+		model.put("authenticatedUsername", authentication.getName());
 		
 		model.put("isLiked", isLiked);
 		

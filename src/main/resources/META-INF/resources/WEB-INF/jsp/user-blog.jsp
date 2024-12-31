@@ -33,7 +33,9 @@
 			
 			<div class="d-flex justify-content-between align-items-center mb-3">
 				<h3>게시글 목록</h3>
-				<a  href="/${username}/posts/new" class="btn btn-primary">새 글 작성</a>
+				<c:if test="${username == authenticatedUsername}">
+					<a  href="/${username}/posts/new" class="btn btn-primary">새 글 작성</a>
+				</c:if>
 			</div>
 			
 			<div class="row row-cols-1 g-4">
