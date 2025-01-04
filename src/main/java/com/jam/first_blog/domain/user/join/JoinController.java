@@ -32,7 +32,7 @@ public class JoinController {
 		
 		if (authentication != null && authentication.isAuthenticated()) {
 			redirectAttributes.addFlashAttribute("error", "alreadyLogin");
-			log.debug("JoinJController: 이미 로그인했는데 로그인시도 발생.");
+			log.debug("JoinJController: 이미 로그인했는데 회원가입시도 발생.");
 			return "redirect:/";
 		}
 		

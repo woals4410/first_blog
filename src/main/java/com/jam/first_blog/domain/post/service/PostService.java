@@ -48,24 +48,21 @@ public class PostService {
 	
 	@Transactional
 	public void incrementPostViewCount(int postId) {
-		Post post = postRepository.findById(postId)
-				.orElseThrow(() -> new EntityNotFoundException("게시글이 존재하지 않습니다."));
+		Post post = findByPostId(postId);
 		
 		post.incrementViewCount();
 	}
 	
 	@Transactional
 	public void incrementPostLikeCount(int postId) {
-		Post post = postRepository.findById(postId)
-				.orElseThrow(() -> new EntityNotFoundException("게시글이 존재하지 않습니다."));
+		Post post = findByPostId(postId);
 		
 		post.incrementLikeCount();
 	}
 	
 	@Transactional
 	public void decrementPostLikeCount(int postId) {
-		Post post = postRepository.findById(postId)
-				.orElseThrow(() -> new EntityNotFoundException("게시글이 존재하지 않습니다."));
+		Post post = findByPostId(postId);
 		
 		post.decrementLikeCount();
 	}

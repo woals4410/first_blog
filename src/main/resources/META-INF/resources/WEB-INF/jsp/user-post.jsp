@@ -57,11 +57,11 @@
 			</div>
 			
 			<div class="comment mb-3 pb-3">
-				<form method="post" action="#">
+				<form:form method="POST" modelAttribute="commentCreateForm">
 					<textarea class="form-control" rows="3" placeholder="댓글을 입력 해주세요."
 							style="resize: none;"></textarea>
 					<button type="submit" class="btn btn-info mt-2">댓글 작성</button>
-				</form>
+				</form:form>
 			</div>
 		</div>
 		

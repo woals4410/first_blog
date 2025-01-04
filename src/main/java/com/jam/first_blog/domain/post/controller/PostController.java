@@ -98,6 +98,7 @@ public class PostController {
 	public String showPostById(@PathVariable String username, @PathVariable int postId,
 								ModelMap model, Authentication authentication) {
 		Post post = postService.findByPostId(postId);
+		User user = userService.findByUsername(username);
 		
 		postService.incrementPostViewCount(postId);
 		

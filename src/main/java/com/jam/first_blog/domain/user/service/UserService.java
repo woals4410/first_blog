@@ -41,9 +41,7 @@ public class UserService {
 	
 	public List<Post> retrievePosts(String username) {
 		
-		User user = userRepository.findByUsername(username)
-				.orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
-		
+		User user = findByUsername(username);
 		return user.getPosts();
 	}
 	
