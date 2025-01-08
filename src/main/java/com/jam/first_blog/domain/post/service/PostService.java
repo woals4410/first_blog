@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.jam.first_blog.domain.comment.entity.Comment;
 import com.jam.first_blog.domain.post.dto.PostCreateForm;
 import com.jam.first_blog.domain.post.entity.Post;
 import com.jam.first_blog.domain.post.repository.PostRepository;
@@ -17,7 +18,7 @@ import jakarta.transaction.Transactional;
 @Service
 public class PostService {
 	
-	PostRepository postRepository;
+	private PostRepository postRepository;
 
 	public PostService(PostRepository postRepository) {
 		super();
@@ -65,6 +66,12 @@ public class PostService {
 		Post post = findByPostId(postId);
 		
 		post.decrementLikeCount();
+	}
+	
+	public List<Comment> retrieveComments(int postId) {
+		
+		Post post = findByPostId(postId);
+		return post.getComments();
 	}
 	
 	public List<Post> getTop5RecentPosts() {

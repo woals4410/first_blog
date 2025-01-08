@@ -14,9 +14,9 @@ import com.jam.first_blog.domain.user.repository.UserRepository;
 @Service
 public class UserService {
 	
-	UserRepository userRepository;
+	private UserRepository userRepository;
 	
-	PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
 
 	public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
 		super();

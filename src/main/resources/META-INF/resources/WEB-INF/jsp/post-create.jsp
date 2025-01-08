@@ -32,6 +32,7 @@
 				<div class="form-floating mb-3">
 					<form:textarea path="content" cssClass="form-control" id="floatingContent" placeholder="내용을 입력 해주세요."
 						rows="7" style="resize: none; min-height: 300px;" />
+						<form:errors path="title" cssClass="invalid-feedback" />
 					<label for="floatingContent" class="form-label">내용</label>
 				</div>
 				

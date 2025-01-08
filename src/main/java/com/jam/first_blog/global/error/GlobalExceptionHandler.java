@@ -1,5 +1,6 @@
 package com.jam.first_blog.global.error;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -34,6 +35,16 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(UsernameNotFoundException.class)
 	public String handleUsernameNotFoundException(HttpServletResponse response, Model model, UsernameNotFoundException ex) {
 		response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		model.addAttribute("errorMessage", ex.getMessage());
+		model.addAttribute("errorClass", ex.getClass().getSimpleName());
+		model.addAttribute("statusCode", response.getStatus());
+		
+		return "error";
+	}
+	
+	@ExceptionHandler(AccessDeniedException.class)
+	public String handleAccessDeniedException(HttpServletResponse response, Model model, AccessDeniedException ex) {
+		response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 		model.addAttribute("errorMessage", ex.getMessage());
 		model.addAttribute("errorClass", ex.getClass().getSimpleName());
 		model.addAttribute("statusCode", response.getStatus());

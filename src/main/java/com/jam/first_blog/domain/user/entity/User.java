@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.jam.first_blog.domain.comment.entity.Comment;
 import com.jam.first_blog.domain.like.entity.Like;
 import com.jam.first_blog.domain.post.entity.Post;
 
@@ -53,6 +54,9 @@ public class User implements UserDetails {
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Like> likes;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+	private List<Comment> comments;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-		<nav class="navbar bg-body-tertiary mb-3 p-1" aria-label="Light offcanvas navbar">
+		<nav class="navbar bg-body-tertiary mb-1 p-2" aria-label="Light offcanvas navbar">
 			<div class="container-fluid d-flex justify-content-between">
 				<a class="navbar-brand" href="/">Blog Home</a>
 	

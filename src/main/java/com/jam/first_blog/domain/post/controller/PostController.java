@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.jam.first_blog.domain.comment.dto.CommentCreateForm;
+import com.jam.first_blog.domain.comment.entity.Comment;
 import com.jam.first_blog.domain.like.service.LikeService;
 import com.jam.first_blog.domain.post.dto.PostCreateForm;
 import com.jam.first_blog.domain.post.entity.Post;
@@ -60,7 +62,12 @@ public class PostController {
 	
 	
 	@GetMapping("/{username}/posts/new")
-	public String showCreatePostForm(@PathVariable String username, ModelMap model) {
+	public String showCreatePostForm(@PathVariable String username, ModelMap model, Authentication authentication) {
+		
+		if (!username.equals(authentication.getName())) {
+			log.debug("인증된 사용자 '{}'와 요청된 사용자 '{}'가 일치하지 않아 접근이 거부되었습니다.", authentication.getName(), username);
+			throw new AccessDeniedException("현재 사용자가 요청된 사용자와 다릅니다.");
+		}
 		
 		PostCreateForm postCreateForm = new PostCreateForm();
 		model.put("postCreateForm", postCreateForm);
@@ -75,18 +82,14 @@ public class PostController {
 		// 현재 사용자
 		User user = userService.findByUsername(authentication.getName());
 		
-		if (user == null) {
-			log.error("user is null");
-			return "post-create";
-		}
-		
 		if (!username.equals(authentication.getName())) {
-			throw new AccessDeniedException("현재 사용자는 요청된 사용자와 다릅니다.");
+			log.debug("인증된 사용자 '{}'와 요청된 사용자 '{}'가 일치하지 않아 접근이 거부되었습니다.", authentication.getName(), username);
+			throw new AccessDeniedException("현재 사용자가 요청된 사용자와 다릅니다.");
 		}
 		
 		if (result.hasErrors()) {
-			log.info("bindingResult: {}", result);
-			return "post-create";
+			log.info("bindingResult.getAllErrors: {}", result.getAllErrors());
+			return "redirect:/{username}/posts";
 		}
 		
 		postService.savePost(postCreateForm, user);
@@ -95,7 +98,7 @@ public class PostController {
 	}
 	
 	@GetMapping("/{username}/posts/{postId}")
-	public String showPostById(@PathVariable String username, @PathVariable int postId,
+	public String showPostsById(@PathVariable String username, @PathVariable int postId,
 								ModelMap model, Authentication authentication) {
 		Post post = postService.findByPostId(postId);
 		User user = userService.findByUsername(username);
@@ -119,6 +122,12 @@ public class PostController {
 		
 		int likeCount = post.getLikeCount();
 		model.put("likeCount", likeCount);
+		
+		CommentCreateForm commentCreateForm = new CommentCreateForm();
+		model.addAttribute("commentCreateForm", commentCreateForm);
+		
+		List<Comment> comments = postService.retrieveComments(postId);
+		model.addAttribute("comments", comments);
 		
 		return "user-post";
 	}

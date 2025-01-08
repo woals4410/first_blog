@@ -7,6 +7,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.jam.first_blog.domain.comment.entity.Comment;
 import com.jam.first_blog.domain.like.entity.Like;
 import com.jam.first_blog.domain.user.entity.User;
 
@@ -55,6 +56,9 @@ public class Post {
 	
 	@OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Like> likes;
+	
+	@OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, orphanRemoval = true)
+	private List<Comment> comments;
 	
 	public void incrementViewCount() {
 		this.viewCount++;

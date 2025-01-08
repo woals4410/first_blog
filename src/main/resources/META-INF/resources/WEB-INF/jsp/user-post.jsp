@@ -11,24 +11,35 @@
 		<meta charset="UTF-8">
 		<title>${username}님의 블로그</title>
 		
+		<style>
+			.comment-list .card {
+				border: 1px solid #ddd; /* 연한 테두리 */
+				border-radius: 8px; /* 둥근 모서리 */
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 */
+				background-color: #f9f9f9; /* 부드러운 배경색 */
+			}
+			.commentTextForm {
+				background-color: #f9f9f9; /* 부드러운 배경색 */
+			}
+		</style>
 	</head>
 	
 	<body>
 		<%@include file="common/navigation.jspf" %>
 		
-		<div class="container mt-1" style="background: #b2c7a8;">
+		<div class="container py-3" style="background: #b2c7a8;">
 			
 			<h1>${username}님의 블로그</h1>
 			<hr><br>
 			
-			<div class="p-4 p-md-5 mb-4 bg-body-secondary text-dark rounded shadow">
+			<div class="border-left border-right p-4 mb-4 bg-body-secondary text-dark rounded shadow">
 				<div class="d-flex justify-content-between align-items-center mb-4">
 					<h1 class="fw-bold mb-3">${post.title}</h1>
 					<c:if test="${username == authenticatedUsername}">
 						<form action="/${username}/posts/${post.id}" method="post">
 							<input type="hidden" name="_method" value="DELETE">
 							<button type="button" class="btn btn-danger"
-								onclick="confirmDelete('${username}', ${post.id})">글 삭제</button>
+								onclick="confirmDeletePost('${username}', ${post.id})">글 삭제</button>
 						</form>
 					</c:if>
 				</div>
@@ -56,20 +67,56 @@
 				</div>
 			</div>
 			
-			<div class="comment mb-3 pb-3">
-				<form:form method="POST" modelAttribute="commentCreateForm">
-					<textarea class="form-control" rows="3" placeholder="댓글을 입력 해주세요."
-							style="resize: none;"></textarea>
-					<button type="submit" class="btn btn-info mt-2">댓글 작성</button>
+			<div class="m-2 p-3 bg-body rounded shadow">
+				<h2 class="fw-bold fs-4 py-2">댓글</h2>
+				<div class="comment-list ">
+					<c:forEach items="${comments}" var="comment">
+						<ul class="card mx-2 px-2" style="list-style:none;">
+							<li class="card-body">
+								<div class="d-flex justify-content-between">
+									<div>
+										<h5 class="card-title">${comment.user.username}</h5>
+										<p class="card-text ps-2">${comment.content}</p>
+									</div>
+									<c:if test="${authenticatedUsername == comment.user.username}">
+										<form action="/${username}/posts/${postId}/comments/${comment.id}" method="post" class="ms-3">
+											<input type="hidden" name="_method" value="DELETE">
+											<button type="submit" class="btn btn-link text-danger btn-sm">삭제</button>
+										</form>
+									</c:if>
+								</div>
+								<div class="text-muted mt-1">
+									작성일: ${post.createdAt}
+								</div>
+							</li>
+						</ul>
+					</c:forEach>
+				</div>
+				
+				<form:form  action="/${username}/posts/${postId}/createComment" method="POST" modelAttribute="commentCreateForm">
+					<div class="d-flex justify-content-between align-items-center py-3">
+						<form:errors path="content" cssClass="invalid-feedback" />
+						<form:textarea path="content" rows="3" placeholder="댓글을 입력 해주세요."
+							cssClass="form-control commentTextForm" cssStyle="resize: none;" />
+						<button type="submit" class="btn m-1 py-3 fs-6 text-nowrap fw-bold" style="background: #7facd3;">댓글 작성</button>
+					</div>
 				</form:form>
 			</div>
 		</div>
 		
 		<script>
-			function confirmDelete(username, postId) {
+			function confirmDeletePost(username, postId) {
 				if (confirm("정말로 삭제하시겠습니까?")) {
 					
 					const form = document.querySelector(`form[action="/${username}/posts/${postId}"]`);
+					form.submit();
+				}
+			}
+			
+			function confirmDeleteComment(username, postId) {
+				if (confirm("정말로 삭제하시겠습니까?")) {
+					
+					const form = document.querySelector(`form[action="/${username}/posts/${postId}/createComment"]`);
 					form.submit();
 				}
 			}
