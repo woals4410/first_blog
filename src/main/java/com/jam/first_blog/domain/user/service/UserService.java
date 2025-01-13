@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.jam.first_blog.domain.comment.entity.Comment;
 import com.jam.first_blog.domain.post.entity.Post;
 import com.jam.first_blog.domain.user.dto.UserJoinForm;
 import com.jam.first_blog.domain.user.entity.User;
@@ -45,7 +46,11 @@ public class UserService {
 		return user.getPosts();
 	}
 	
-	
+	public List<Comment> retrieveCommentsByUsername(String username) {
+		
+		User user = findByUsername(username);
+		return user.getComments();
+	}
 	
 	// 비밀번호와 비밀번호 확인이 같은지 체크
 	public boolean checkConfirmPassword(String password, String confirmPassword ) {

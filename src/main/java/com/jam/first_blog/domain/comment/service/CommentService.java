@@ -8,6 +8,8 @@ import com.jam.first_blog.domain.comment.repository.CommentRepository;
 import com.jam.first_blog.domain.post.entity.Post;
 import com.jam.first_blog.domain.user.entity.User;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class CommentService {
 	
@@ -29,5 +31,14 @@ public class CommentService {
 		return commentRepository.save(comment);
 	}
 	
+	public void deleteComment(int commentId) {
+		Comment comment = findCommentByCommentId(commentId);
+		
+		commentRepository.delete(comment);
+	}
 	
+	public Comment findCommentByCommentId(int commentId) {
+		return commentRepository.findById(commentId)
+				.orElseThrow(() -> new EntityNotFoundException("댓글이 존재하지 않습니다."));
+	}
 }

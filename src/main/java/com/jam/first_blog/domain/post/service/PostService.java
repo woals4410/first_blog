@@ -68,7 +68,7 @@ public class PostService {
 		post.decrementLikeCount();
 	}
 	
-	public List<Comment> retrieveComments(int postId) {
+	public List<Comment> retrieveCommentsByPostId(int postId) {
 		
 		Post post = findByPostId(postId);
 		return post.getComments();

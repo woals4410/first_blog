@@ -126,7 +126,7 @@ public class PostController {
 		CommentCreateForm commentCreateForm = new CommentCreateForm();
 		model.addAttribute("commentCreateForm", commentCreateForm);
 		
-		List<Comment> comments = postService.retrieveComments(postId);
+		List<Comment> comments = postService.retrieveCommentsByPostId(postId);
 		model.addAttribute("comments", comments);
 		
 		return "user-post";

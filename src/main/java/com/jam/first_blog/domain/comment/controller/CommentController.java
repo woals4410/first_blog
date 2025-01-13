@@ -4,6 +4,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,7 +42,7 @@ public class CommentController {
 		
 		if (result.hasErrors()) {
 			
-			return "user-post";
+			return "redirect:/{username}/posts/{postId}";
 		}
 		
 		User authenticatedUser = userService.findByUsername(authentication.getName());
@@ -49,6 +50,15 @@ public class CommentController {
 		
 		
 		commentService.saveComment(commentCreateForm, authenticatedUser, post);
+		
+		return "redirect:/{username}/posts/{postId}";
+	}
+	
+	@DeleteMapping("/{username}/posts/{postId}/comments/{commentId}")
+	public String deleteComments(@PathVariable String username, @PathVariable int postId, @PathVariable int commentId,
+									ModelMap model) {
+		
+		commentService.deleteComment(commentId);
 		
 		return "redirect:/{username}/posts/{postId}";
 	}

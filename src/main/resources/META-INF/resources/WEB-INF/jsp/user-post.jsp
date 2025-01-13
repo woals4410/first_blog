@@ -70,8 +70,8 @@
 			<div class="m-2 p-3 bg-body rounded shadow">
 				<h2 class="fw-bold fs-4 py-2">댓글</h2>
 				<div class="comment-list ">
-					<c:forEach items="${comments}" var="comment">
-						<ul class="card mx-2 px-2" style="list-style:none;">
+					<ul class="card mx-2 px-2" style="list-style:none;">
+						<c:forEach items="${comments}" var="comment">
 							<li class="card-body">
 								<div class="d-flex justify-content-between">
 									<div>
@@ -79,9 +79,11 @@
 										<p class="card-text ps-2">${comment.content}</p>
 									</div>
 									<c:if test="${authenticatedUsername == comment.user.username}">
-										<form action="/${username}/posts/${postId}/comments/${comment.id}" method="post" class="ms-3">
+										<form action="/${username}/posts/${post.id}/comments/${comment.id}" method="post" class="ms-3">
 											<input type="hidden" name="_method" value="DELETE">
-											<button type="submit" class="btn btn-link text-danger btn-sm">삭제</button>
+											<button type="submit" class="comment-delete-button btn btn-link text-danger btn-sm">
+													삭제
+											</button>
 										</form>
 									</c:if>
 								</div>
@@ -89,8 +91,9 @@
 									작성일: ${post.createdAt}
 								</div>
 							</li>
-						</ul>
-					</c:forEach>
+							<hr>
+						</c:forEach>
+					</ul>
 				</div>
 				
 				<form:form  action="/${username}/posts/${postId}/createComment" method="POST" modelAttribute="commentCreateForm">
@@ -109,14 +112,6 @@
 				if (confirm("정말로 삭제하시겠습니까?")) {
 					
 					const form = document.querySelector(`form[action="/${username}/posts/${postId}"]`);
-					form.submit();
-				}
-			}
-			
-			function confirmDeleteComment(username, postId) {
-				if (confirm("정말로 삭제하시겠습니까?")) {
-					
-					const form = document.querySelector(`form[action="/${username}/posts/${postId}/createComment"]`);
 					form.submit();
 				}
 			}
