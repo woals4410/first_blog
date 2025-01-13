@@ -97,12 +97,14 @@
 				</div>
 				
 				<form:form  action="/${username}/posts/${postId}/createComment" method="POST" modelAttribute="commentCreateForm">
-					<div class="d-flex justify-content-between align-items-center py-3">
-						<form:errors path="content" cssClass="invalid-feedback" />
+					<div class="d-flex justify-content-between align-items-center pt-3">
 						<form:textarea path="content" rows="3" placeholder="댓글을 입력 해주세요."
 							cssClass="form-control commentTextForm" cssStyle="resize: none;" />
-						<button type="submit" class="btn m-1 py-3 fs-6 text-nowrap fw-bold" style="background: #7facd3;">댓글 작성</button>
+						<button type="submit" class="btn m-1 py-3 fs-6 text-nowrap fw-bold h-100" style="background: #7facd3;">댓글 작성</button>
 					</div>
+					<c:if test="${error eq 'ContentBlank'}">
+						<span class="invalid-feedback d-block px-2">댓글 내용을 입력하세요.</span>
+					</c:if>
 				</form:form>
 			</div>
 		</div>

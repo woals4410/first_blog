@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jam.first_blog.domain.comment.dto.CommentCreateForm;
 import com.jam.first_blog.domain.comment.service.CommentService;
@@ -17,8 +18,10 @@ import com.jam.first_blog.domain.user.entity.User;
 import com.jam.first_blog.domain.user.service.UserService;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 
+@Slf4j
 @Controller
 public class CommentController {
 	
@@ -38,9 +41,12 @@ public class CommentController {
 	public String createComments(@PathVariable String username, @PathVariable int postId,
 								Authentication authentication, ModelMap model,
 								@Valid @ModelAttribute CommentCreateForm commentCreateForm,
-								BindingResult result) {
+								BindingResult result, RedirectAttributes redirectAttributes) {
 		
 		if (result.hasErrors()) {
+			
+			log.debug("Comment BindingResult Errors: {}", result);
+			redirectAttributes.addFlashAttribute("error", "ContentBlank");
 			
 			return "redirect:/{username}/posts/{postId}";
 		}
