@@ -103,7 +103,7 @@
 						<button type="submit" class="btn m-1 py-3 fs-6 text-nowrap fw-bold h-100" style="background: #7facd3;">댓글 작성</button>
 					</div>
 					<c:if test="${error eq 'ContentBlank'}">
-						<span class="invalid-feedback d-block px-2">댓글 내용을 입력하세요.</span>
+						<span class="invalid-feedback d-block px-2">내용을 입력해주세요.</span>
 					</c:if>
 				</form:form>
 			</div>
