@@ -71,4 +71,18 @@ public class Post {
 	public void decrementLikeCount() {
 		this.likeCount--;
 	}
+	
+	public Post update(String title, String content) {
+		if (title == null || title.isEmpty()) {
+			throw new IllegalArgumentException("제목을 입력해주세요.");
+		}
+		if (content == null || content.isEmpty()) {
+			throw new IllegalArgumentException("내용을 입력해주세요.");
+		}
+		
+		this.title = title;
+		this.content = content;
+		
+		return this;
+	}
 }

@@ -51,4 +51,24 @@ public class GlobalExceptionHandler {
 		
 		return "error";
 	}
+	
+	@ExceptionHandler(IllegalArgumentException.class)
+	public String handleIllegalArgumentException(HttpServletResponse response, Model model, IllegalArgumentException ex) {
+		response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		model.addAttribute("errorMessage", ex.getMessage());
+		model.addAttribute("errorClass", ex.getClass().getSimpleName());
+		model.addAttribute("statusCode", response.getStatus());
+		
+		return "error";
+	}
+	
+//	@ExceptionHandler(Exception.class)
+//	public String handleGeneralException(HttpServletResponse response, Model model, Exception ex) {
+//		response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+//		model.addAttribute("errorMessage", ex.getMessage());
+//		model.addAttribute("errorClass", ex.getClass().getSimpleName());
+//		model.addAttribute("statusCode", response.getStatus());
+//		
+//		return "error";
+//	}
 }

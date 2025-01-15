@@ -14,7 +14,9 @@ import com.jam.first_blog.domain.user.entity.User;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class PostService {
 	
@@ -37,6 +39,17 @@ public class PostService {
 		
 		return postRepository.save(post);
 	}
+	
+	public void updatePost(PostCreateForm postCreateForm, int postId) {
+		
+		Post post = findByPostId(postId);
+		
+		log.info("업뎃전: {}", post.getContent());
+		post.update(postCreateForm.getTitle(), postCreateForm.getContent());
+		postRepository.saveAndFlush(post);
+		log.info("업뎃후: {}", post.getContent());
+	}
+	
 	
 	public Post findByPostId(int postId) {
 		return postRepository.findById(postId)

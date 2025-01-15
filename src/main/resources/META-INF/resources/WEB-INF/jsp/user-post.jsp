@@ -33,13 +33,22 @@
 			<hr><br>
 			
 			<div class="border-left border-right p-4 mb-4 bg-body-secondary text-dark rounded shadow">
-				<div class="d-flex justify-content-between align-items-center mb-4">
+				<div class="d-flex justify-content-between align-items-center">
 					<h1 class="fw-bold mb-3">${post.title}</h1>
 					<c:if test="${username == authenticatedUsername}">
-						<form action="/${username}/posts/${post.id}" method="post">
-							<input type="hidden" name="_method" value="DELETE">
-							<button type="button" class="btn btn-danger"
-								onclick="confirmDeletePost('${username}', ${post.id})">글 삭제</button>
+						<div>
+							<form action="/${username}/posts/${post.id}" method="post">
+								<input type="hidden" name="_method" value="DELETE">
+								<button type="button" class="btn btn-danger"
+									onclick="confirmDeletePost('${username}', ${post.id})">글 삭제</button>
+							</form>
+						</div>
+					</c:if>
+				</div>
+				<div class="d-flex justify-content-end mb-4">
+					<c:if test="${username == authenticatedUsername}">
+						<form action="/${username}/posts/${post.id}/edit" class="ms-3">
+							<button type="submit" class="btn btn-info">수정</button>
 						</form>
 					</c:if>
 				</div>
@@ -97,7 +106,7 @@
 				</div>
 				
 				<form:form  action="/${username}/posts/${postId}/createComment" method="POST" modelAttribute="commentCreateForm">
-					<div class="d-flex justify-content-between align-items-center pt-3">
+					<div class="d-flex justify-content-between align-items-stretch pt-3">
 						<form:textarea path="content" rows="3" placeholder="댓글을 입력 해주세요."
 							cssClass="form-control commentTextForm" cssStyle="resize: none;" />
 						<button type="submit" class="btn m-1 py-3 fs-6 text-nowrap fw-bold h-100" style="background: #7facd3;">댓글 작성</button>

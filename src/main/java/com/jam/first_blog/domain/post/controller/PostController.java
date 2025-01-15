@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -60,6 +61,41 @@ public class PostController {
 		return "user-blog";
 	}
 	
+	@GetMapping("/{username}/posts/{postId}")
+	public String showPostsById(@PathVariable String username, @PathVariable int postId,
+								ModelMap model, Authentication authentication) {
+		Post post = postService.findByPostId(postId);
+		User user = userService.findByUsername(username);
+		
+		postService.incrementPostViewCount(postId);
+		
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+		String formattedCreatedAt = post.getCreatedAt().format(dateFormatter);		
+		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-mm-dd HH:mm");
+		String formattedUpdatedAt = post.getUpdatedAt().format(dateTimeFormatter);
+		model.put("formattedCreatedAt", formattedCreatedAt);
+		model.put("formattedUpdatedAt", formattedUpdatedAt);
+		
+		model.put("post", post);
+		log.info("showPostBtId 로딩: {}", postService.findByPostId(postId).getContent());
+
+		User authenticatedUser = userService.findByUsername(authentication.getName());
+		boolean isLiked = likeService.isLikeExist(authenticatedUser, post);
+		model.put("authenticatedUsername", authentication.getName());
+		
+		model.put("isLiked", isLiked);
+		
+		int likeCount = post.getLikeCount();
+		model.put("likeCount", likeCount);
+		
+		CommentCreateForm commentCreateForm = new CommentCreateForm();
+		model.addAttribute("commentCreateForm", commentCreateForm);
+		
+		List<Comment> comments = postService.retrieveCommentsByPostId(postId);
+		model.addAttribute("comments", comments);
+		
+		return "user-post";
+	}
 	
 	@GetMapping("/{username}/posts/new")
 	public String showCreatePostForm(@PathVariable String username, ModelMap model, Authentication authentication) {
@@ -97,46 +133,39 @@ public class PostController {
 		return "redirect:/{username}/posts";
 	}
 	
-	@GetMapping("/{username}/posts/{postId}")
-	public String showPostsById(@PathVariable String username, @PathVariable int postId,
-								ModelMap model, Authentication authentication) {
-		Post post = postService.findByPostId(postId);
-		User user = userService.findByUsername(username);
-		
-		postService.incrementPostViewCount(postId);
-		
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
-		String formattedCreatedAt = post.getCreatedAt().format(dateFormatter);		
-		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-mm-dd HH:mm");
-		String formattedUpdatedAt = post.getUpdatedAt().format(dateTimeFormatter);
-		model.put("formattedCreatedAt", formattedCreatedAt);
-		model.put("formattedUpdatedAt", formattedUpdatedAt);
-		
-		model.put("post", post);
-
-		User authenticatedUser = userService.findByUsername(authentication.getName());
-		boolean isLiked = likeService.isLikeExist(authenticatedUser, post);
-		model.put("authenticatedUsername", authentication.getName());
-		
-		model.put("isLiked", isLiked);
-		
-		int likeCount = post.getLikeCount();
-		model.put("likeCount", likeCount);
-		
-		CommentCreateForm commentCreateForm = new CommentCreateForm();
-		model.addAttribute("commentCreateForm", commentCreateForm);
-		
-		List<Comment> comments = postService.retrieveCommentsByPostId(postId);
-		model.addAttribute("comments", comments);
-		
-		return "user-post";
-	}
-	
 	@DeleteMapping("/{username}/posts/{postId}")
 	public String deletePost(@PathVariable String username, @PathVariable int postId) {
 		postService.deleteByPostId(postId);
 		
 		return "redirect:/{username}/posts";
+	}
+	
+	@GetMapping("/{username}/posts/{postId}/edit")
+	public String showUpdatePostForm(@PathVariable String username, @PathVariable int postId, ModelMap model) {
+		Post post = postService.findByPostId(postId);
+		
+		PostCreateForm postUpdateForm = new PostCreateForm();
+		postUpdateForm.setTitle(post.getTitle());
+		postUpdateForm.setContent(post.getContent());
+		
+		model.put("postUpdateForm", postUpdateForm);
+		model.put("username", username);
+		
+		return "post-update";
+	}
+	
+	@PatchMapping("/{username}/posts/{postId}/edit")
+	public String updatePost(@PathVariable String username, @PathVariable int postId, ModelMap model,
+							@ModelAttribute PostCreateForm postUpdateForm, BindingResult result) {
+		if (result.hasErrors()) {
+			log.info("bindingResult.getAllErrors: {}", result.getAllErrors());
+			return "redirect:/{username}/posts";
+		}
+		
+		postService.updatePost(postUpdateForm, postId);
+		
+		log.info("updatePost 수정 후: {}", postService.findByPostId(postId).getContent());
+		return "redirect:/{username}/posts/{postId}";
 	}
 	
 	@PostMapping("/{username}/posts/{postId}/like-toggle")
