@@ -56,6 +56,12 @@ public class UserService {
 	public boolean checkConfirmPassword(String password, String confirmPassword ) {
 		return password.equals(confirmPassword);
 	}
+	
+	// 인증비밀번호와 user의 비밀번호가 같은지 체크
+	public boolean isPasswordMatch(String confirmPassword, User user) {
+		return passwordEncoder.matches(confirmPassword, user.getPassword());
+	}
+	
 
 	// 아이디 중복확인
 	public boolean isUsernameDuplicate(String username) {
@@ -82,5 +88,11 @@ public class UserService {
 	public User findByUsername(String username) {
 		return userRepository.findByUsername(username)
 				.orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
+	}
+
+
+	public void deleteUser(User user) {
+		userRepository.delete(user);
+		
 	}
 }

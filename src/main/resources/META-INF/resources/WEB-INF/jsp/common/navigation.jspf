@@ -13,12 +13,12 @@
 					aria-labelledby="offcanvasNavbarLightLabel">
 					
 					<div class="offcanvas-header">
-						<h5 class="offcanvas-title" id="offcanvasNavbarLightLabel">${sessionScope.user.username}</h5>
-						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+						<h5 class="offcanvas-title fs-2" id="offcanvasNavbarLightLabel">${sessionScope.user.username}</h5>
+						<button type="button" class="btn-close btn-close-dark" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 					</div>
 					
-					<div class="offcanvas-body">
-						<ul class="navbar-nav justify-content-end flex-grow-1 pe-3 ms-auto">
+					<div class="offcanvas-body d-flex flex-column">
+						<ul class="navbar-nav flex-grow-1 pe-3 ms-auto">
 							
 							
 							<c:if test="${not empty sessionScope.user}">
@@ -32,7 +32,16 @@
 								<li class="nav-item"><a class="nav-link" href="/login">로그인</a></li>
 							</c:if>
 						</ul>
+						
+						<ul class="navbar-nav pe-3 ms-auto mt-auto">
+							<c:if test="${not empty sessionScope.user}">
+								<li class="nav-item">
+									<a class="nav-link text-muted" href="/${sessionScope.user.username}/delete-account">회원 탈퇴</a>
+								</li>
+							</c:if>
+						</ul>
 					</div>
+					
 				</div>
 			</div>
 		</nav>

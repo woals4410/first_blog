@@ -43,7 +43,7 @@ public class PostController {
 		this.postService = postService;
 		this.likeService = likeService;
 	}
-	
+
 	@GetMapping("/{username}")
 	public String showUserBlog(@PathVariable String username, ModelMap model) {
 		return "redirect:/{username}/posts";
@@ -116,7 +116,7 @@ public class PostController {
 			@Valid @ModelAttribute PostCreateForm postCreateForm, BindingResult result, ModelMap model) {
 		
 		// 현재 사용자
-		User user = userService.findByUsername(authentication.getName());
+		User currentUser = userService.findByUsername(authentication.getName());
 		
 		if (!username.equals(authentication.getName())) {
 			log.debug("인증된 사용자 '{}'와 요청된 사용자 '{}'가 일치하지 않아 접근이 거부되었습니다.", authentication.getName(), username);
@@ -128,7 +128,7 @@ public class PostController {
 			return "redirect:/{username}/posts";
 		}
 		
-		postService.savePost(postCreateForm, user);
+		postService.savePost(postCreateForm, currentUser);
 		
 		return "redirect:/{username}/posts";
 	}
