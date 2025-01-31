@@ -21,4 +21,5 @@
 
 ## 패키지 설계
 
-![image](https://github.com/user-attachments/assets/681a376f-88f8-4c60-bd8a-08d8c996419a)
+![image](https://github.com/user-attachments/assets/d94592ec-2c66-4e36-83bc-b60e0480e79d)
+
