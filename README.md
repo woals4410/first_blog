@@ -10,8 +10,8 @@
     
     [https://dbdiagram.io/d/67331d16e9daa85aca251981](https://dbdiagram.io/d/67331d16e9daa85aca251981)
     ![image](https://github.com/user-attachments/assets/e85bbbd6-eeef-45be-ba59-a7bc0b3c2665)
-(- Post에 like_count가 추가.
-- Like에 created_at 삭제.)
+(- Post에 like_count가 추가.)
+(- Like에 created_at 삭제.)
 
 
 - 테이블 및 관계 설명.
